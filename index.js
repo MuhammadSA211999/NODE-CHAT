@@ -3,7 +3,20 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
 dotenv.config()
-//apppppp
+
+/*
+******REQUIREMENT ANALYSIS*****
+1. It would be a private CHAT-APP
+2.There are two diffrent rule will implemented
+3. ADMIN and general USER 
+4.USER CAN LOGINN BUT CAN'N CREATE A ACCOUNT, ADMIN CAN CREATE THE USER AND START A CONVERSATION.
+5. REQUEST VALIDATING WITH EXPRESS VALIDATOR
+6. SERVER SIDE RENDERING BY EJS 
+7. COOKIE AUTHENTICATION BY JWT
+8. WEB SOCKET FOR REALTIME UPDATE AND NOTIFICATION
+*/
+
+//apppppp scaffolding
 const app = express()
 
 //dependencies
