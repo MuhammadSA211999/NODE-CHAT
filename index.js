@@ -2,8 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const dotenv = require('dotenv')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const { notFoundHandler, errorHandler } = require('./middleware/common/errorHandler')
 dotenv.config()
-
+const PORT = process.env.NODE_CHAT_PORT
 /*
 ******REQUIREMENT ANALYSIS*****
 1. It would be a private CHAT-APP
@@ -22,7 +25,10 @@ const app = express()
 //dependencies
 app.use(express.json())
 app.use(cors())
-const PORT = process.env.NODE_CHAT_PORT
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('view engine', 'ejs')
 
 
 //connect the database
@@ -39,13 +45,10 @@ mongoose.connect(process.env.NODE_CHAT_DATABASE, {
 
 //APP ROUTES HERE
 
-//whole app error handler middleware
-const errorHandler = (err, req, res, next) => {
-    console.log('error in error handler=>', err);
-    next()
-}
 
-//use error handler
+//not foundHandler
+app.use(notFoundHandler)
+//whole app errorhandler
 app.use(errorHandler)
 
 //listen the app
